@@ -1,20 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-    <title>CurrySimulator</title>
-    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <meta charset="UTF-8">
+    <title>Mensch ärgere Dich nicht</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="imageContainer">
-        <img id="currentImage" src="path_to_first_image.jpg" alt="Currywerk Warteschlange">
-    </div>
-    <div id="interactionArea">
-        <!-- Hier werden dynamisch Knöpfe und Auswahlmöglichkeiten hinzugefügt -->
-    </div>
-
-    <!-- Reset Button -->
-    <button id="resetButton" onclick="resetProgress()">Reset Progress</button>
-
-    <script src="js/index.js"></script>
+    <canvas id="gameCanvas" width="600" height="600"></canvas>
+    <button id="rollDice">Würfeln</button>
+    <p id="diceResult"></p>
+    <script src="field.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
