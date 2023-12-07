@@ -7,7 +7,9 @@ class Field {
         ['yellow', 'khaki']
     ]);
 
-    constructor(type, color) {
+    constructor(x, y, type, color) {
+        this.x = x;
+        this.y = y;
         this.type = type; // 'path', 'goal', 'house', 'start', 'empty'
         this.color = color; // 'red', 'blue', 'green', 'yellow'
     }
@@ -30,5 +32,14 @@ class Field {
 
         ctx.fillStyle = fillColor;
         ctx.fillRect(x * size, y * size, size, size);
+    }
+
+    isEmpty() {
+        pieces[this.color].forEach(piece => {
+            if (piece.x == this.x && piece.y == this.y) {
+                return false;
+            }
+        });
+        return true;
     }
 }

@@ -8,17 +8,37 @@ let board = [];
 const players = ['red', 'green', 'blue', 'yellow']; // Liste der Spieler
 let currentPlayerIndex = 0; // Startet mit dem ersten Spieler
 
-// Anfangspositionen der Spielfiguren
-let pieces = {
-    red: [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}],
-    green: [{x: 9, y: 0}, {x: 10, y: 0}, {x: 9, y: 1}, {x: 10, y: 1}],
-    yellow: [{x: 0, y: 9}, {x: 1, y: 9}, {x: 0, y: 10}, {x: 1, y: 10}],
-    blue: [{x: 9, y: 9}, {x: 10, y: 9}, {x: 9, y: 10}, {x: 10, y: 10}]
-};
-
 let selectedPiece = null;
 let diceResult = 0;
 let hasRolled = false; // Flag, das anzeigt, ob der aktuelle Spieler gewürfelt hat
+
+// Anfangspositionen der Spielfiguren
+let pieces = {
+    red: [
+        new Piece('red', 0, 0), 
+        new Piece('red', 1, 0), 
+        new Piece('red', 0, 1), 
+        new Piece('red', 1, 1)
+    ],
+    green: [
+        new Piece('green', 9, 0), 
+        new Piece('green', 10, 0), 
+        new Piece('green', 9, 1), 
+        new Piece('green', 10, 1)
+    ],
+    yellow: [
+        new Piece('yellow', 0, 9), 
+        new Piece('yellow', 1, 9), 
+        new Piece('yellow', 0, 10), 
+        new Piece('yellow', 1, 10)
+    ],
+    blue: [
+        new Piece('blue', 9, 9), 
+        new Piece('blue', 10, 9), 
+        new Piece('blue', 9, 10), 
+        new Piece('blue', 10, 10)
+    ]
+};
 
 function setup() {
     setRandomDiceAtStart();
@@ -86,7 +106,7 @@ function setup() {
                 fieldType = 'start';
                 fieldColor = 'yellow';
             }
-            row.push(new Field(fieldType, fieldColor));
+            row.push(new Field(x, y, fieldType, fieldColor));
         }
         board.push(row);
     }
@@ -98,7 +118,7 @@ function setup() {
         for (let x = 0; x < boardSize; x++) {
             if (board[y][x].type != 'empty') continue;
             if (x == 5 && y == 5) continue;
-            if (neighborExists(x, y, 'goal')) board[y][x] = new Field(fieldType, fieldColor);
+            if (neighborExists(x, y, 'goal')) board[y][x] = new Field(x, y, fieldType, fieldColor);
         }
     }
 }
@@ -133,4 +153,25 @@ function setRandomDiceAtStart() {
     let diceImage = document.getElementById('diceImage');
     diceImage.src = `img/dice-${randomStartDice}.svg`;
     diceImage.classList.add('dice-filter'); // Fügt den Filtereffekt hinzu
+}
+
+function drawSquare(x, y, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(x * squareSizePx, y * squareSizePx, squareSizePx, squareSizePx);
+}
+
+function drawBoard() {
+    // Zeichnet das Grundlayout des Bretts
+    for (let y = 0; y < boardSize; y++) {
+        for (let x = 0; x < boardSize; x++) {
+            board[y][x].draw(ctx, x, y, squareSizePx);
+        }
+    }
+
+    // Spielfiguren zeichnen
+    for (const color in pieces) {
+        pieces[color].forEach(piece => {
+            piece.draw(piece.x, piece.y);
+        });
+    }
 }

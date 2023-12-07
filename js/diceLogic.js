@@ -27,6 +27,14 @@ function rollDice() {
         document.getElementById('diceImage').src = `img/dice-${diceResult}.svg`;
         animateDice();
         hasRolled = true;
+        
+        
+        player = players[currentPlayerIndex];
+        calculateValidMoves(player);
+        if (!hasValidMoves(player)) {
+            animateSkip();
+            changePlayer();
+        }
     }
     return diceResult;
 }
