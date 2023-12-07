@@ -1,3 +1,7 @@
+let diceResult = 0;
+let hasRolled = false; // Flag, das anzeigt, ob der aktuelle Spieler gewürfelt hat
+let rollCounter = 1; // Wenn ein Spieler keine Züge hat, darf er 3x würfeln
+
 function animateDice() {
     let diceImage = document.getElementById('diceImage');
     diceImage.classList.add('dice-filter'); // Fügt den Filtereffekt hinzu
@@ -28,12 +32,18 @@ function rollDice() {
         animateDice();
         hasRolled = true;
         
-        
         player = players[currentPlayerIndex];
         calculateValidMoves(player);
         if (!hasValidMoves(player)) {
-            animateSkip();
-            changePlayer();
+            if (rollCounter == 3) {
+                rollCounter = 1;
+                animateSkip();
+                changePlayer();
+            } else {
+                console.log("try again");
+                hasRolled = false;
+                rollCounter++;
+            }
         }
     }
     return diceResult;

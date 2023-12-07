@@ -9,8 +9,6 @@ const players = ['red', 'green', 'blue', 'yellow']; // Liste der Spieler
 let currentPlayerIndex = 0; // Startet mit dem ersten Spieler
 
 let selectedPiece = null;
-let diceResult = 0;
-let hasRolled = false; // Flag, das anzeigt, ob der aktuelle Spieler gewürfelt hat
 
 // Anfangspositionen der Spielfiguren
 let pieces = {

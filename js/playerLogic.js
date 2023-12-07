@@ -25,6 +25,7 @@ function isValidMove(x, y, pieceColor) {
 function changePlayer() {
     currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
     hasRolled = false;
+    rollCounter = 1;
     updateCurrentPlayerDisplay();
 }
 
