@@ -7,5 +7,5 @@ canvas.addEventListener('click', click);
 
 document.getElementById('diceImage').addEventListener('click', rollDice);
 
-updateCurrentPlayerDisplay();
+updateCurrentColorDisplay();
 drawBoard();

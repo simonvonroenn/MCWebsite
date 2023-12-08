@@ -32,15 +32,14 @@ function rollDice() {
         animateDice();
         hasRolled = true;
         
-        player = players[currentPlayerIndex];
-        calculateValidMoves(player);
-        if (!hasValidMoves(player)) {
+        color = colors[currentColorIndex];
+        calculateValidMoves(color);
+        if (!hasValidMoves(color)) {
             if (rollCounter == 3) {
                 rollCounter = 1;
                 animateSkip();
-                changePlayer();
+                changeColor();
             } else {
-                console.log("try again");
                 hasRolled = false;
                 rollCounter++;
             }

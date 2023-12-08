@@ -3,7 +3,7 @@ class Piece {
         this.color = color;
         this.x = x;
         this.y = y;
-        this.validMoves = []; // Hier werden gültige Züge gespeichert
+        this.validMove = null;
     }
     
     draw(x, y) {

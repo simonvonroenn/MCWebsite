@@ -5,10 +5,18 @@ const pieceRadius = squareSizePx / 3; // Radius der Spielfiguren
 
 let board = [];
 
-const players = ['red', 'green', 'blue', 'yellow']; // Liste der Spieler
-let currentPlayerIndex = 0; // Startet mit dem ersten Spieler
+const colors = ['red', 'green', 'blue', 'yellow']; // Liste der Spieler
+let currentColorIndex = 0; // Startet mit dem ersten Spieler
 
 let selectedPiece = null;
+
+// Orientierung in jedem Viertel
+let quarterMap = new Map([
+    ["red", {fst: {x: 1, y: 0}, snd: {x: 0, y: -1}}],
+    ["green", {fst: {x: 0, y: 1}, snd: {x: 1, y: 0}}],
+    ["blue", {fst: {x: -1, y: 0}, snd: {x: 0, y: 1}}],
+    ["yellow", {fst: {x: 0, y: -1}, snd: {x: -1, y: 0}}]
+]);
 
 // Anfangspositionen der Spielfiguren
 let pieces = {
