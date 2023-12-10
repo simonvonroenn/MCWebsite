@@ -1,3 +1,16 @@
+const colors = ['red', 'green', 'blue', 'yellow']; // Liste der Spieler
+let currentColorIndex = 0; // Startet mit dem ersten Spieler
+
+let selectedPiece = null;
+
+// Orientierung in jedem Viertel (maybe delete this)
+let quarterMap = new Map([
+    ["red", {fst: Ori.RIGHT, snd: Ori.UP}],
+    ["green", {fst: Ori.DOWN, snd: Ori.RIGHT}],
+    ["blue", {fst: Ori.LEFT, snd: Ori.DOWN}],
+    ["yellow", {fst: Ori.UP, snd: Ori.LEFT}]
+]);
+
 function calculateValidMoves(color) {
     let startField = getStartField(color);
     pieces[color].forEach(piece => {
@@ -7,7 +20,8 @@ function calculateValidMoves(color) {
             }
         } else {
             let info = calculateInformation(piece);
-            console.log("ori: (x: %d, y: %d) (x: %d, y: %d)", quarterMap.get(info.quarter).fst.x, quarterMap.get(info.quarter).fst.y, quarterMap.get(info.quarter).snd.x, quarterMap.get(info.quarter).snd.y);
+
+            console.log("ori: %s -> %s", quarterMap.get(info.quarter).fst, quarterMap.get(info.quarter).snd);
             console.log("corner: (x: %d, y: %d)", info.corner.x, info.corner.y);
         }
 
@@ -17,6 +31,7 @@ function calculateValidMoves(color) {
     });
 }
 
+// Maybe delete this
 function calculateInformation(piece) {
     let middle = Math.floor(boardSize / 2);
     if (piece.x < middle && piece.y < middle || piece.x == middle && piece.y < middle) return {quarter: "red", corner: {x: middle - 1, y: middle - 1}};
@@ -39,6 +54,9 @@ function isValidMove(x, y, color) {
 }
 
 function changeColor() {
+    pieces[colors[currentColorIndex]].forEach(piece => {
+        piece.validMove = null;
+    }); 
     currentColorIndex = (currentColorIndex + 1) % colors.length;
     hasRolled = false;
     rollCounter = 1;

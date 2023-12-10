@@ -9,8 +9,8 @@
     border: 1px solid black;
 }
 
-#currentPlayer {
-    font-size: 20px;
+#currentColor {
+    font-size: 30px;
     font-weight: bold;
     color: #333;
 }
