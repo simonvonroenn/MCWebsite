@@ -1,0 +1,16 @@
+"filename", "language", "CSS", "JavaScript", "HTML", "XML", "comment", "blank", "total"
+"d:\User\simon\Documents\Uni\2023-WS\MC\Website\img\dice-1.svg", "XML", 0, 0, 0, 7, 0, 1, 8
+"d:\User\simon\Documents\Uni\2023-WS\MC\Website\img\dice-2.svg", "XML", 0, 0, 0, 8, 0, 1, 9
+"d:\User\simon\Documents\Uni\2023-WS\MC\Website\img\dice-3.svg", "XML", 0, 0, 0, 9, 0, 1, 10
+"d:\User\simon\Documents\Uni\2023-WS\MC\Website\img\dice-4.svg", "XML", 0, 0, 0, 10, 0, 1, 11
+"d:\User\simon\Documents\Uni\2023-WS\MC\Website\img\dice-5.svg", "XML", 0, 0, 0, 11, 0, 1, 12
+"d:\User\simon\Documents\Uni\2023-WS\MC\Website\img\dice-6.svg", "XML", 0, 0, 0, 12, 0, 1, 13
+"d:\User\simon\Documents\Uni\2023-WS\MC\Website\index.html", "HTML", 0, 0, 19, 0, 0, 1, 20
+"d:\User\simon\Documents\Uni\2023-WS\MC\Website\js\classes\field.js", "JavaScript", 0, 40, 0, 0, 0, 6, 46
+"d:\User\simon\Documents\Uni\2023-WS\MC\Website\js\classes\piece.js", "JavaScript", 0, 14, 0, 0, 0, 2, 16
+"d:\User\simon\Documents\Uni\2023-WS\MC\Website\js\diceLogic.js", "JavaScript", 0, 43, 0, 0, 1, 5, 49
+"d:\User\simon\Documents\Uni\2023-WS\MC\Website\js\gameLogic.js", "JavaScript", 0, 79, 0, 0, 4, 15, 98
+"d:\User\simon\Documents\Uni\2023-WS\MC\Website\js\gameSetup.js", "JavaScript", 0, 121, 0, 0, 64, 18, 203
+"d:\User\simon\Documents\Uni\2023-WS\MC\Website\script.js", "JavaScript", 0, 14, 0, 0, 0, 5, 19
+"d:\User\simon\Documents\Uni\2023-WS\MC\Website\styles.css", "CSS", 23, 0, 0, 0, 0, 5, 28
+"Total", "-", 23, 311, 19, 57, 69, 63, 542

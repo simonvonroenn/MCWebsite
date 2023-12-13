@@ -1,9 +1,10 @@
 class Piece {
-    constructor(color, x, y) {
+    constructor(color, x, y, pathIdx) {
         this.color = color;
         this.x = x;
         this.y = y;
         this.validMove = null;
+        this.pathIdx = pathIdx;
     }
     
     draw(x, y) {

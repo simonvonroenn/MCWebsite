@@ -4,7 +4,7 @@ class Field {
         ['red', 'lightpink'],
         ['blue', 'lightblue'],
         ['green', 'lightgreen'],
-        ['yellow', 'khaki']
+        ['yellow', 'khaki'],
     ]);
 
     constructor(x, y, type, color) {
@@ -32,6 +32,10 @@ class Field {
 
         ctx.fillStyle = fillColor;
         ctx.fillRect(x * size, y * size, size, size);
+        if (this.type != 'empty') {
+            ctx.lineWidth = 0.05;
+            ctx.strokeRect(x * squareSizePx, y * squareSizePx, squareSizePx, squareSizePx);
+        }
     }
 
     isEmpty() {

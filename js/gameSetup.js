@@ -5,33 +5,82 @@ const pieceRadius = squareSizePx / 3; // Radius der Spielfiguren
 
 let board = [];
 
-let boardSetup = [/* TODO */];
+let boardSetup = [
+    ['hr', 'hr', 'ew', 'ew', 'pl', 'pl', 'sg', 'ew', 'ew', 'hg', 'hg'],
+    ['hr', 'hr', 'ew', 'ew', 'pl', 'gg', 'pl', 'ew', 'ew', 'hg', 'hg'],
+    ['ew', 'ew', 'ew', 'ew', 'pl', 'gg', 'pl', 'ew', 'ew', 'ew', 'ew'],
+    ['ew', 'ew', 'ew', 'ew', 'pl', 'gg', 'pl', 'ew', 'ew', 'ew', 'ew'],
+    ['sr', 'pl', 'pl', 'pl', 'pl', 'gg', 'pl', 'pl', 'pl', 'pl', 'pl'],
+    ['pl', 'gr', 'gr', 'gr', 'gr', 'ew', 'gb', 'gb', 'gb', 'gb', 'pl'],
+    ['pl', 'pl', 'pl', 'pl', 'pl', 'gy', 'pl', 'pl', 'pl', 'pl', 'sb'],
+    ['ew', 'ew', 'ew', 'ew', 'pl', 'gy', 'pl', 'ew', 'ew', 'ew', 'ew'],
+    ['ew', 'ew', 'ew', 'ew', 'pl', 'gy', 'pl', 'ew', 'ew', 'ew', 'ew'],
+    ['hy', 'hy', 'ew', 'ew', 'pl', 'gy', 'pl', 'ew', 'ew', 'hb', 'hb'],
+    ['hy', 'hy', 'ew', 'ew', 'sy', 'pl', 'pl', 'ew', 'ew', 'hb', 'hb'],
+];
+
+let pathlength = 44;
+let path = {
+    red: {
+        x: [0, 1, 2, 3, 4, 4, 4, 4, 4, 5, 6, 6, 6, 6, 6, 7, 8, 9, 10, 10, 10, 9, 8, 7, 6, 6, 6, 6, 6, 5, 4, 4, 4, 4, 4, 3, 2, 1, 0, 0, 1, 2, 3, 4],
+        y: [4, 4, 4, 4, 4, 3, 2, 1, 0, 0, 0, 1, 2, 3, 4, 4, 4, 4, 4, 5, 6, 6, 6, 6, 6, 7, 8, 9, 10, 10, 10, 9, 8, 7, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5]
+    },
+    green: {
+        x: [6, 6, 6, 6, 6, 7, 8, 9, 10, 10, 10, 9, 8, 7, 6, 6, 6, 6, 6, 5, 4, 4, 4, 4, 4, 3, 2, 1, 0, 0, 0, 1, 2, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5],
+        y: [0, 1, 2, 3, 4, 4, 4, 4, 4, 5, 6, 6, 6, 6, 6, 7, 8, 9, 10, 10, 10, 9, 8, 7, 6, 6, 6, 6, 6, 5, 4, 4, 4, 4, 4, 3, 2, 1, 0, 0, 1, 2, 3, 4]
+    },
+    blue: {
+        x: [10, 9, 8, 7, 6, 6, 6, 6, 6, 5, 4, 4, 4, 4, 4, 3, 2, 1, 0, 0, 0, 1, 2, 3, 4, 4, 4, 4, 4, 5, 6, 6, 6, 6, 6, 7, 8, 9, 10, 10, 9, 8, 7, 6],
+        y: [6, 6, 6, 6, 6, 7, 8, 9, 10, 10, 10, 9, 8, 7, 6, 6, 6, 6, 6, 5, 4, 4, 4, 4, 4, 3, 2, 1, 0, 0, 0, 1, 2, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5]
+    },
+    yellow: {
+        x: [4, 4, 4, 4, 4, 3, 2, 1, 0, 0, 0, 1, 2, 3, 4, 4, 4, 4, 4, 5, 6, 6, 6, 6, 6, 7, 8, 9, 10, 10, 10, 9, 8, 7, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5],
+        y: [10, 9, 8, 7, 6, 6, 6, 6, 6, 5, 4, 4, 4, 4, 4, 3, 2, 1, 0, 0, 0, 1, 2, 3, 4, 4, 4, 4, 4, 5, 6, 6, 6, 6, 6, 7, 8, 9, 10, 10, 9, 8, 7, 6]
+    }
+}
+
+let boardMapType = new Map([
+    ['h', 'house'],
+    ['e', 'empty'],
+    ['p', 'path'],
+    ['g', 'goal'],
+    ['s', 'start']
+]);
+
+let boardMapColor = new Map([
+    ['r', 'red'],
+    ['g', 'green'],
+    ['b', 'blue'],
+    ['y', 'yellow'],
+    ['w', 'white'],
+    ['l', 'lightgrey']
+]);
 
 // Anfangspositionen der Spielfiguren
 let pieces = {
     red: [
-        new Piece('red', 0, 0), 
-        new Piece('red', 1, 0), 
-        new Piece('red', 0, 1), 
-        new Piece('red', 1, 1)
+        new Piece('red', 0, 0, -1), 
+        new Piece('red', 1, 0, -1), 
+        new Piece('red', 0, 1, -1), 
+        new Piece('red', 1, 1, -1)
     ],
     green: [
-        new Piece('green', 9, 0), 
-        new Piece('green', 10, 0), 
-        new Piece('green', 9, 1), 
-        new Piece('green', 10, 1)
+        new Piece('green', 9, 0, -1), 
+        new Piece('green', 10, 0, -1), 
+        new Piece('green', 9, 1, -1), 
+        new Piece('green', 10, 1, -1)
     ],
     yellow: [
-        new Piece('yellow', 0, 9), 
-        new Piece('yellow', 1, 9), 
-        new Piece('yellow', 0, 10), 
-        new Piece('yellow', 1, 10)
+        new Piece('yellow', 0, 9, -1), 
+        new Piece('yellow', 1, 9, -1), 
+        new Piece('yellow', 0, 10, -1), 
+        new Piece('yellow', 1, 10, -1)
     ],
     blue: [
-        new Piece('blue', 9, 9), 
-        new Piece('blue', 10, 9), 
-        new Piece('blue', 9, 10), 
-        new Piece('blue', 10, 10)
+        new Piece('blue', 9, 9, -1), 
+        new Piece('blue', 10, 9, -1), 
+        new Piece('blue', 9, 10, -1), 
+        new Piece('blue', 10, 10, -1)
     ]
 };
 
@@ -44,63 +93,9 @@ function setup() {
     for (let y = 0; y < boardSize; y++) {
         let row = [];
         for (let x = 0; x < boardSize; x++) {
-            fieldType = 'empty';
-            fieldColor = 'white';
-            
-            // Hausfelder
-            if (x < 2 && y < 2) {
-                fieldType = 'house';
-                fieldColor = 'red';
-            }
-            else if (x < 2 && y >= boardSize - 2) {
-                fieldType = 'house';
-                fieldColor = 'yellow';
-            }
-            else if (x >= boardSize - 2 && y < 2) {
-                fieldType = 'house';
-                fieldColor = 'green';
-            }
-            else if (x >= boardSize - 2 && y >= boardSize - 2) {
-                fieldType = 'house';
-                fieldColor = 'blue';
-            }
+            fieldType = boardMapType.get(boardSetup[y][x][0]);
+            fieldColor = boardMapColor.get(boardSetup[y][x][1]);
 
-            // Zielfelder
-            else if (x == 5 && y >= 1 && y <= 4) {
-                fieldType = 'goal';
-                fieldColor = 'green';
-            }
-            else if (x >= 1 && x <= 4 && y == 5) {
-                fieldType = 'goal';
-                fieldColor = 'red';
-            }
-            else if (x == 5 && y >= boardSize - 5 && y <= boardSize - 2) {
-                fieldType = 'goal';
-                fieldColor = 'yellow';
-            }
-            else if (x >= boardSize - 5 && x <= boardSize - 2 && y == 5) {
-                fieldType = 'goal';
-                fieldColor = 'blue';
-            }
-
-            // Startfelder
-            let middle = Math.floor(boardSize / 2);
-            if (x == 0 && y == middle - 1) {
-                fieldType = 'start';
-                fieldColor = 'red';
-            }
-            else if (x == middle + 1 && y == 0) {
-                fieldType = 'start';
-                fieldColor = 'green';
-            }
-            else if (x == boardSize - 1 && y == middle + 1) {
-                fieldType = 'start';
-                fieldColor = 'blue';
-            }
-            else if (x == middle - 1 && y == boardSize - 1) {
-                fieldType = 'start';
-                fieldColor = 'yellow';
-            }
             row.push(new Field(x, y, fieldType, fieldColor));
         }
         board.push(row);
@@ -113,7 +108,7 @@ function setup() {
         for (let x = 0; x < boardSize; x++) {
             if (board[y][x].type != 'empty') continue;
             if (x == 5 && y == 5) continue;
-            if (neighborExists(x, y, 'goal')) board[y][x] = new Field(x, y, fieldType, fieldColor);
+            if (neighborExists(x, y, 'goal')) board[y][x] = new Field(x, y, fieldType, fieldColor, index);
         }
     }
 }
@@ -148,11 +143,6 @@ function setRandomDiceAtStart() {
     let diceImage = document.getElementById('diceImage');
     diceImage.src = `img/dice-${randomStartDice}.svg`;
     diceImage.classList.add('dice-filter'); // Fügt den Filtereffekt hinzu
-}
-
-function drawSquare(x, y, color) {
-    ctx.fillStyle = color;
-    ctx.fillRect(x * squareSizePx, y * squareSizePx, squareSizePx, squareSizePx);
 }
 
 function drawBoard() {

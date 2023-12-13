@@ -3,14 +3,6 @@ let currentColorIndex = 0; // Startet mit dem ersten Spieler
 
 let selectedPiece = null;
 
-// Orientierung in jedem Viertel (maybe delete this)
-let quarterMap = new Map([
-    ["red", {fst: Ori.RIGHT, snd: Ori.UP}],
-    ["green", {fst: Ori.DOWN, snd: Ori.RIGHT}],
-    ["blue", {fst: Ori.LEFT, snd: Ori.DOWN}],
-    ["yellow", {fst: Ori.UP, snd: Ori.LEFT}]
-]);
-
 function calculateValidMoves(color) {
     let startField = getStartField(color);
     pieces[color].forEach(piece => {
@@ -19,25 +11,13 @@ function calculateValidMoves(color) {
                 piece.validMove = startField;
             }
         } else {
-            let info = calculateInformation(piece);
-
-            console.log("ori: %s -> %s", quarterMap.get(info.quarter).fst, quarterMap.get(info.quarter).snd);
-            console.log("corner: (x: %d, y: %d)", info.corner.x, info.corner.y);
+            if (piece.pathIdx + diceResult < pathlength) {
+                piece.validMove = board[path[color].y[piece.pathIdx + diceResult]][path[color].x[piece.pathIdx + diceResult]];
+            }
         }
 
-
         if (piece.validMove != null) console.log("(" + piece.validMove.x + ", " + piece.validMove.y + ")");
-        else console.log("()");
     });
-}
-
-// Maybe delete this
-function calculateInformation(piece) {
-    let middle = Math.floor(boardSize / 2);
-    if (piece.x < middle && piece.y < middle || piece.x == middle && piece.y < middle) return {quarter: "red", corner: {x: middle - 1, y: middle - 1}};
-    else if (piece.x > middle && piece.y < middle || piece.x > middle && piece.y == middle) return {quarter: "green", corner: {x: middle + 1, y: middle - 1}};
-    else if (piece.x > middle && piece.y > middle || piece.x == middle && piece.y > middle) return {quarter: "blue", corner: {x: middle + 1, y: middle + 1}};
-    else if (piece.x < middle && piece.y > middle || piece.x < middle && piece.y == middle) return {quarter: "yellow", corner: {x: middle - 1, y: middle + 1}};
 }
 
 function hasValidMoves(color) {
@@ -87,6 +67,13 @@ function handleClick(x, y) {
     if (selectedPiece && selectedPiece.color === colors[currentColorIndex] && hasRolled) {
         // Überprüfen, ob der Zug gültig ist
         if (isValidMove(x, y, selectedPiece.color)) {
+            // Aktualisieren der Position der Figur im path array
+            if (board[selectedPiece.y][selectedPiece.x].type == 'house') {
+                selectedPiece.pathIdx = 0;
+            } else {
+                selectedPiece.pathIdx += diceResult;
+            }
+
             // Bewege die ausgewählte Figur zum neuen Feld
             selectedPiece.x = x;
             selectedPiece.y = y;
@@ -100,8 +87,9 @@ function handleClick(x, y) {
         for (const color in pieces) {
             for (const piece of pieces[color]) {
                 if (Math.hypot(piece.x - x, piece.y - y) * squareSizePx <= pieceRadius) {
-                    piece.color = color;
-                    selectedPiece = piece;
+                    if (piece.validMove != null) {
+                        selectedPiece = piece;
+                    }
                     return;
                 }
             }
