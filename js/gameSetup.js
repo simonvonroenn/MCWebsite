@@ -1,6 +1,6 @@
-const boardSizePx = 600;
-const boardSize = 11;
-const squareSizePx = boardSizePx / boardSize;
+const boardSizePx = 500;
+const SquaresPerSide = 11;
+const squareSizePx = boardSizePx / SquaresPerSide;
 const pieceRadius = squareSizePx / 3; // Radius der Spielfiguren
 
 let board = [];
@@ -90,9 +90,9 @@ function setup() {
     let fieldType;
     let fieldColor;
 
-    for (let y = 0; y < boardSize; y++) {
+    for (let y = 0; y < SquaresPerSide; y++) {
         let row = [];
-        for (let x = 0; x < boardSize; x++) {
+        for (let x = 0; x < SquaresPerSide; x++) {
             fieldType = boardMapType.get(boardSetup[y][x][0]);
             fieldColor = boardMapColor.get(boardSetup[y][x][1]);
 
@@ -104,8 +104,8 @@ function setup() {
     // Pfadfelder
     fieldType = 'path';
     fieldColor = 'lightgrey';
-    for (let y = 0; y < boardSize; y++) {
-        for (let x = 0; x < boardSize; x++) {
+    for (let y = 0; y < SquaresPerSide; y++) {
+        for (let x = 0; x < SquaresPerSide; x++) {
             if (board[y][x].type != 'empty') continue;
             if (x == 5 && y == 5) continue;
             if (neighborExists(x, y, 'goal')) board[y][x] = new Field(x, y, fieldType, fieldColor, index);
@@ -126,7 +126,7 @@ function neighborExists(x, y, type) {
             let neighborY = y + dy;
 
             // Überprüfe, ob der Nachbar innerhalb des Spielbretts liegt
-            if (neighborX >= 0 && neighborX < boardSize && neighborY >= 0 && neighborY < boardSize) {
+            if (neighborX >= 0 && neighborX < SquaresPerSide && neighborY >= 0 && neighborY < SquaresPerSide) {
                 // Überprüfe den Typ des Nachbarfeldes
                 if (board[neighborY][neighborX].type === type) {
                     return true;
@@ -141,14 +141,14 @@ function neighborExists(x, y, type) {
 function setRandomDiceAtStart() {
     let randomStartDice = Math.floor(Math.random() * 6) + 1;
     let diceImage = document.getElementById('diceImage');
-    diceImage.src = `img/dice-${randomStartDice}.svg`;
-    diceImage.classList.add('dice-filter'); // Fügt den Filtereffekt hinzu
+    diceImage.src = `img/dice/dice-${randomStartDice}.svg`;
+    diceImage.classList.add('dice-filter'); // Fügt den grauen Filtereffekt hinzu
 }
 
 function drawBoard() {
     // Zeichnet das Grundlayout des Bretts
-    for (let y = 0; y < boardSize; y++) {
-        for (let x = 0; x < boardSize; x++) {
+    for (let y = 0; y < SquaresPerSide; y++) {
+        for (let x = 0; x < SquaresPerSide; x++) {
             board[y][x].draw(ctx, x, y, squareSizePx);
         }
     }

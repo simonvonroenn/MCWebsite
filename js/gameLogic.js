@@ -50,8 +50,8 @@ function updateCurrentColorDisplay() {
 }
 
 function getStartField(color) {
-    for (let y = 0; y < boardSize; y++) {
-        for (let x = 0; x < boardSize; x++) {
+    for (let y = 0; y < SquaresPerSide; y++) {
+        for (let x = 0; x < SquaresPerSide; x++) {
             if (board[y][x].type == 'start' && board[y][x].color == color) {
                 return board[y][x];
             }

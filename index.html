@@ -2,13 +2,34 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Mensch ärgere Dich nicht</title>
+    <meta name="viewport" content="width=device-width">
+    <title>Student Ärgere Dich Nicht</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <p id="currentColor"></p>
-    <canvas id="gameCanvas" width="600" height="600"></canvas>
-    <img id="diceImage" alt="Würfel" />
+    <header class="game-header">
+        <nav>
+            <div class="header-content">
+                <img src="img/logo.png" alt="Spiel-Logo" class="logo">
+                <h1>Student Ärgere Dich Nicht!</h1>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <aside class="sidebar">
+                <p id="currentColor"></p>
+            </aside>
+            <section class="boardSection">
+                <canvas id="gameCanvas" width="500px" height="500px"></canvas>
+            </section>
+            <section class="diceSection">
+                <img id="diceImage" alt="Würfel" />
+            </section>
+        </div>
+    </main>
+    
+    <!-- JavaScript -->
     <script src="js/classes/field.js"></script>
     <script src="js/classes/piece.js"></script>
     <script src="js/diceLogic.js"></script>
