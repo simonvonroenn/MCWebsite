@@ -39,6 +39,13 @@ let path = {
     }
 }
 
+let colorMap = new Map([
+    ['red', 'lightpink'],
+    ['blue', 'lightblue'],
+    ['green', 'lightgreen'],
+    ['yellow', 'khaki'],
+]);
+
 let boardMapType = new Map([
     ['h', 'house'],
     ['e', 'empty'],

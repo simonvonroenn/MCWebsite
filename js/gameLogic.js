@@ -48,8 +48,15 @@ function changeColor() {
 }
 
 function updateCurrentColorDisplay() {
+    let newColor = colors[currentColorIndex];
     const colorDisplay = document.getElementById('currentColor');
-    colorDisplay.textContent = `Spieler am Zug: ${colors[currentColorIndex]}`;
+    colorDisplay.textContent = `Spieler am Zug: ${newColor}`;
+
+    // Setzen der Hintergrundfarbe basierend auf dem aktuellen Spieler
+    const header = document.querySelector('.game-header');
+    const sidebar = document.querySelector('.sidebar');
+    header.style.backgroundColor = colorMap.get(newColor);
+    sidebar.style.backgroundColor = colorMap.get(newColor);
 }
 
 function getStartField(color) {
@@ -114,6 +121,7 @@ function drop(event) {
     
             changeColor();
         } else {
+            // Figur aufs alte Feld zurück
             selectedPiece.x = draggedFrom.x;
             selectedPiece.y = draggedFrom.y;
             drawBoard();

@@ -15,7 +15,6 @@ body {
 
 /* Header Styles */
 .game-header {
-    background-color: #4CAF50;
     color: white;
     text-align: center;
     padding: 5vh 0;
@@ -50,10 +49,9 @@ body {
 /* Sidebar */
 .sidebar {
     flex: 1 0 0;
-    background-color: #4CAF50;
     color: white;
     text-align: center;
-    padding: 30vh 0;
+    padding: 20vh 0;
 }
 
 /* Current color */

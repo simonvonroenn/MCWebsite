@@ -1,12 +1,5 @@
 class Field {
 
-    colorMap = new Map([
-        ['red', 'lightpink'],
-        ['blue', 'lightblue'],
-        ['green', 'lightgreen'],
-        ['yellow', 'khaki'],
-    ]);
-
     constructor(x, y, type, color) {
         this.x = x;
         this.y = y;
@@ -24,7 +17,7 @@ class Field {
             case 'house':
             case 'goal':
             case 'start':
-                fillColor = this.colorMap.get(this.color);
+                fillColor = colorMap.get(this.color);
                 break;
             default:
                 fillColor = 'black';
