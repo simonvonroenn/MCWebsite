@@ -6,26 +6,18 @@ updateCurrentColorDisplay();
 drawBoard();
 
 
-for (let y = 0; y < SquaresPerSide; y++) {
+for (let y = 0; y < squaresPerSide; y++) {
     let s = "";
-    for (let x = 0; x < SquaresPerSide; x++) {
+    for (let x = 0; x < squaresPerSide; x++) {
         s += "'" + board[y][x].type[0] + board[y][x].color[0] + "', "
     }
     console.log(s);
 }
 
-canvas.addEventListener('click', click);
-
 document.getElementById('diceImage').addEventListener('click', rollDice);
 
-/*
-window.addEventListener('resize', () => {
-    // Clear the canvas.
-    ctx.clearRect(0, 0, ctx.width, ctx.height);
+canvas.addEventListener('mousedown', click);
 
-    // Draw it all again.
-    setup();
-    updateCurrentColorDisplay();
-    drawBoard();
-});
-*/
+canvas.addEventListener('mousemove', drag);
+
+canvas.addEventListener('mouseup', drop);

@@ -1,6 +1,6 @@
 const boardSizePx = 500;
-const SquaresPerSide = 11;
-const squareSizePx = boardSizePx / SquaresPerSide;
+const squaresPerSide = 11;
+const squareSizePx = boardSizePx / squaresPerSide;
 const pieceRadius = squareSizePx / 3; // Radius der Spielfiguren
 
 let board = [];
@@ -90,9 +90,9 @@ function setup() {
     let fieldType;
     let fieldColor;
 
-    for (let y = 0; y < SquaresPerSide; y++) {
+    for (let y = 0; y < squaresPerSide; y++) {
         let row = [];
-        for (let x = 0; x < SquaresPerSide; x++) {
+        for (let x = 0; x < squaresPerSide; x++) {
             fieldType = boardMapType.get(boardSetup[y][x][0]);
             fieldColor = boardMapColor.get(boardSetup[y][x][1]);
 
@@ -104,8 +104,8 @@ function setup() {
     // Pfadfelder
     fieldType = 'path';
     fieldColor = 'lightgrey';
-    for (let y = 0; y < SquaresPerSide; y++) {
-        for (let x = 0; x < SquaresPerSide; x++) {
+    for (let y = 0; y < squaresPerSide; y++) {
+        for (let x = 0; x < squaresPerSide; x++) {
             if (board[y][x].type != 'empty') continue;
             if (x == 5 && y == 5) continue;
             if (neighborExists(x, y, 'goal')) board[y][x] = new Field(x, y, fieldType, fieldColor, index);
@@ -126,7 +126,7 @@ function neighborExists(x, y, type) {
             let neighborY = y + dy;
 
             // Überprüfe, ob der Nachbar innerhalb des Spielbretts liegt
-            if (neighborX >= 0 && neighborX < SquaresPerSide && neighborY >= 0 && neighborY < SquaresPerSide) {
+            if (neighborX >= 0 && neighborX < squaresPerSide && neighborY >= 0 && neighborY < squaresPerSide) {
                 // Überprüfe den Typ des Nachbarfeldes
                 if (board[neighborY][neighborX].type === type) {
                     return true;
@@ -147,8 +147,8 @@ function setRandomDiceAtStart() {
 
 function drawBoard() {
     // Zeichnet das Grundlayout des Bretts
-    for (let y = 0; y < SquaresPerSide; y++) {
-        for (let x = 0; x < SquaresPerSide; x++) {
+    for (let y = 0; y < squaresPerSide; y++) {
+        for (let x = 0; x < squaresPerSide; x++) {
             board[y][x].draw(ctx, x, y, squareSizePx);
         }
     }
@@ -156,7 +156,12 @@ function drawBoard() {
     // Spielfiguren zeichnen
     for (const color in pieces) {
         pieces[color].forEach(piece => {
-            piece.draw(piece.x, piece.y);
+            piece.draw();
         });
+    }
+
+    // Ausgewählte Figur zeichnen
+    if (selectedPiece != null) {
+        selectedPiece.draw();
     }
 }

@@ -7,10 +7,10 @@ class Piece {
         this.pathIdx = pathIdx;
     }
     
-    draw(x, y) {
+    draw() {
         ctx.fillStyle = this.color;
         ctx.beginPath();
-        ctx.arc(x * squareSizePx + squareSizePx / 2, y * squareSizePx + squareSizePx / 2, pieceRadius, 0, Math.PI * 2);
+        ctx.arc(this.x * squareSizePx + squareSizePx / 2, this.y * squareSizePx + squareSizePx / 2, pieceRadius, 0, Math.PI * 2);
         ctx.fill();
     }
 }
