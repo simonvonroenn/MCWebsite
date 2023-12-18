@@ -50,8 +50,8 @@ body {
 .sidebar {
     flex: 1 0 0;
     color: white;
-    text-align: center;
-    padding: 20vh 0;
+    text-align: left;
+    padding: 20vh 20px;
 }
 
 /* Current color */
