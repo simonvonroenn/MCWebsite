@@ -1,18 +1,13 @@
+/**
+ * This is the main javascript file.
+ * It initializes the canvas, adds all event listeners and calls all setup methods.
+ */
+
+/** The canvas */
 const canvas = document.getElementById('gameCanvas');
+
+/** The 2d-context of the canvas, hereafter referred to as the canvas itself. */
 const ctx = canvas.getContext('2d');
-
-setup();
-updateCurrentColorDisplay();
-drawBoard();
-
-
-for (let y = 0; y < squaresPerSide; y++) {
-    let s = "";
-    for (let x = 0; x < squaresPerSide; x++) {
-        s += "'" + board[y][x].type[0] + board[y][x].color[0] + "', "
-    }
-    console.log(s);
-}
 
 document.getElementById('diceImage').addEventListener('click', rollDice);
 
@@ -21,3 +16,7 @@ canvas.addEventListener('mousedown', click);
 canvas.addEventListener('mousemove', drag);
 
 canvas.addEventListener('mouseup', drop);
+
+setup();
+updateCurrentColorDisplay();
+drawBoard();

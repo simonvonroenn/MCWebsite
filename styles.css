@@ -1,7 +1,16 @@
-/* Grundlegende Styles */
+/*
+* This is the main css file.
+*/
+
+/* Basic Styles */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
 }
 
 .container {
@@ -37,7 +46,6 @@ body {
 }
 
 /* Board styles */
-
 .boardSection {
     flex: 1 0 0;
 }
@@ -46,7 +54,7 @@ body {
     border: 1px solid black;
 }
 
-/* Sidebar */
+/* Sidebar styles */
 .sidebar {
     flex: 1 0 0;
     color: white;
@@ -61,7 +69,7 @@ body {
     color: white;
 }
 
-/* Würfel styles */
+/* Dice styles */
 .diceSection {
     flex: 1 0 0;
 }

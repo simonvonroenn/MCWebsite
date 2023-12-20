@@ -1,11 +1,21 @@
-const colors = ['red', 'green', 'blue', 'yellow']; // Liste der Spieler
-let currentColorIndex = 0; // Startet mit dem ersten Spieler
+/**
+ * This is the javascript file that contains all the logic regarding the game itself.
+ */
 
-let selectedPiece = null;
+/** List of all players/colors */
+const colors = ['red', 'green', 'blue', 'yellow'];
 
-let isDragging = false;
-let draggedFrom;
+let currentColorIndex = 0; // Player at index 0 starts
+let selectedPiece = null; // The piece that is been dragged.
 
+let isDragging = false; // State that indicates if a piece is currently being dragged
+let draggedFrom; // The position from where the piece is being dragged
+
+/** 
+ * This method calculates all valid moves for a given player.
+ * 
+ * @param color the player
+*/
 function calculateValidMoves(color) {
     let startField = getStartField(color);
     pieces[color].forEach(piece => {
@@ -23,10 +33,26 @@ function calculateValidMoves(color) {
     });
 }
 
+/**
+ * This method calculates if a player has valid moves.
+ * Necessary for determining if a player can roll the dice again.
+ * @see rollDice
+ * 
+ * @param color the player
+ * @returns {boolean} true if the player has valid moves
+*/
 function hasValidMoves(color) {
     return pieces[color].some(piece => piece.validMove != null);
 }
 
+/**
+ * Check if a field (x,y) is a valid move for the selected piece.
+ * 
+ * @param {number} x the x coordinate of the field
+ * @param {number} y the y coordinate of the field
+ * @param {string} color the player's color
+ * @returns {boolean} true if it is a valid move
+ */
 function isValidMove(x, y, color) {
     let field = board[y][x];
     if (field.type == 'empty' || field.type == 'house') return false;
@@ -36,6 +62,9 @@ function isValidMove(x, y, color) {
     return true;
 }
 
+/**
+ * Give the next player their turn.
+ */
 function changeColor() {
     pieces[colors[currentColorIndex]].forEach(piece => {
         piece.validMove = null;
@@ -47,18 +76,28 @@ function changeColor() {
     console.log(colors[currentColorIndex]);
 }
 
+/**
+ * Update the display of the current player in the UI. 
+ */
 function updateCurrentColorDisplay() {
+    // Update the text of the current player in the sidebar
     let newColor = colors[currentColorIndex];
     const colorDisplay = document.getElementById('currentColor');
     colorDisplay.textContent = `Spieler am Zug: ${newColor}`;
 
-    // Setzen der Hintergrundfarbe basierend auf dem aktuellen Spieler
+    // Set the background color of header and sidebar based on the current player
     const header = document.querySelector('.game-header');
     const sidebar = document.querySelector('.sidebar');
     header.style.backgroundColor = colorMap.get(newColor);
     sidebar.style.backgroundColor = colorMap.get(newColor);
 }
 
+/**
+ * Find the start field of a player.
+ * 
+ * @param {string} color the player
+ * @returns {object} the start field of the given player
+ */
 function getStartField(color) {
     for (let y = 0; y < squaresPerSide; y++) {
         for (let x = 0; x < squaresPerSide; x++) {
@@ -68,11 +107,18 @@ function getStartField(color) {
         }
     }
 }
-
+/**
+ * Animate when a player is skipped after rolling 3x with no valid moves.
+ */
 function animateSkip() {
-    // Skip animation, wenn ein Spieler keine gültigen Züge hat.
+    // Skip animation, if a player has no valid moves.
 }
 
+/**
+ * Select a piece when clicking on it.
+ * 
+ * @param {object} event the clicke event
+ */
 function click(event) {
     let rect = canvas.getBoundingClientRect();
     let x = event.clientX - rect.left;
@@ -81,7 +127,7 @@ function click(event) {
     y = Math.floor(y / squareSizePx);
 
     pieces[colors[currentColorIndex]].forEach(piece => {
-        // Prüfe, ob eine Spielfigur angeklickt wurde
+        // Check if a piece has been clicked on
         if (Math.hypot(piece.x - x, piece.y - y) * squareSizePx <= pieceRadius) {
             if (piece.validMove != null) {
                 draggedFrom = {x: piece.x, y: piece.y};
@@ -93,6 +139,11 @@ function click(event) {
     });
 }
 
+/**
+ * Move the selected piece when dragging it.
+ * 
+ * @param {object} event the event
+ */
 function drag(event) {
     if (isDragging && selectedPiece) {
         let rect = canvas.getBoundingClientRect();
@@ -109,10 +160,14 @@ function drag(event) {
     }
 }
 
+/**
+ * Place the selected piece on its new field (if valid move) or moving it back to its original field (if not valid move) when dropping it.
+ * @param {object} event the event
+ */
 function drop(event) {
     if (selectedPiece && selectedPiece.color === colors[currentColorIndex] && hasRolled) {
         if (isValidMove(selectedPiece.x, selectedPiece.y, selectedPiece.color)) {
-            // Aktualisieren der Position der Figur im path array
+            // Update the position of the piece in the path array
             if (board[draggedFrom.y][draggedFrom.x].type == 'house') {
                 selectedPiece.pathIdx = 0;
             } else {
@@ -121,7 +176,7 @@ function drop(event) {
     
             changeColor();
         } else {
-            // Figur aufs alte Feld zurück
+            // If the move is not valid, move the piece back to its original position
             selectedPiece.x = draggedFrom.x;
             selectedPiece.y = draggedFrom.y;
             drawBoard();
