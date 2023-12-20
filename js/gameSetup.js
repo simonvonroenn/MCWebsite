@@ -2,19 +2,6 @@
  * This is the javascript file that contains all setup variables and setup methods to create the game board.
  */
 
-/** Size of the board */
-let boardSizePx = document.getElementById('gameCanvas').width;
-console.log(boardSizePx);
-
-/** Number of sqaures per side */
-const squaresPerSide = 11;
-
-/** Size of the squares */
-let squareSizePx = boardSizePx / squaresPerSide;
-
-/** Radius of the pieces */
-let pieceRadius = squareSizePx / 3;
-
 /** 
  * Board setup.
  * The first letter sets the type of the field.
@@ -92,7 +79,20 @@ const colorMap = new Map([
     ['yellow', 'khaki'],
 ]);
 
-let board = []; // The board
+/** Number of sqaures per side */
+const squaresPerSide = 11;
+
+// The board
+let board = [];
+
+// Size of the board
+let boardSizePx;
+
+// Size of each square
+let squareSizePx;
+
+// Radius of the pieces
+let pieceRadius;
 
 // Starting position of the pieces
 let pieces = {
@@ -157,8 +157,11 @@ function setRandomDiceAtStart() {
  * Draw the board.
  */
 function drawBoard() {
-    boardSizePx = document.getElementById('gameCanvas').width;
+    // Update size of the board (maximum is 500px)
+    boardSizePx = Math.min(document.getElementById('gameCanvas').width, 500);
+    console.log(boardSizePx);
     squareSizePx = boardSizePx / squaresPerSide;
+    console.log(squareSizePx);
     pieceRadius = squareSizePx / 3;
 
     // Draw the basic layout of the game field

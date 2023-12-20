@@ -13,17 +13,13 @@ const ctx = canvas.getContext('2d');
  * Resize the canvas based on the screen width.
  */
 function resizeCanvas() {
-    const size = window.screen.width - 20;
+    const size = Math.min(window.screen.width - 20, 500);
 
     canvas.width = size;
     canvas.height = size;
 
     drawBoard();
 }
-
-window.onload = resizeCanvas;
-
-window.onresize = resizeCanvas;
 
 document.getElementById('diceImage').addEventListener('click', rollDice);
 
@@ -35,4 +31,7 @@ canvas.addEventListener('mouseup', drop);
 
 setup();
 updateCurrentColorDisplay();
-drawBoard();
+
+window.onload = resizeCanvas;
+
+window.onresize = resizeCanvas;
