@@ -3,16 +3,17 @@
  */
 
 /** Size of the board */
-const boardSizePx = 500;
+let boardSizePx = document.getElementById('gameCanvas').width;
+console.log(boardSizePx);
 
 /** Number of sqaures per side */
 const squaresPerSide = 11;
 
 /** Size of the squares */
-const squareSizePx = boardSizePx / squaresPerSide;
+let squareSizePx = boardSizePx / squaresPerSide;
 
 /** Radius of the pieces */
-const pieceRadius = squareSizePx / 3;
+let pieceRadius = squareSizePx / 3;
 
 /** 
  * Board setup.
@@ -156,17 +157,21 @@ function setRandomDiceAtStart() {
  * Draw the board.
  */
 function drawBoard() {
+    boardSizePx = document.getElementById('gameCanvas').width;
+    squareSizePx = boardSizePx / squaresPerSide;
+    pieceRadius = squareSizePx / 3;
+
     // Draw the basic layout of the game field
     for (let y = 0; y < squaresPerSide; y++) {
         for (let x = 0; x < squaresPerSide; x++) {
-            board[y][x].draw(ctx, squareSizePx);
+            board[y][x].draw(squareSizePx);
         }
     }
 
     // Draw the pieces
     for (const color in pieces) {
         pieces[color].forEach(piece => {
-            piece.draw();
+            piece.draw(squareSizePx, pieceRadius);
         });
     }
 

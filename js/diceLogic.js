@@ -14,6 +14,11 @@ function animateDice() {
     diceImage.classList.add('dice-filter'); // Add the filter effect
     let randomDice;
 
+    // Toggle the 'Roll the dice!' message
+    const rollDiceMessage = document.querySelectorAll('.rollDiceMessage');
+    rollDiceMessage.forEach(o => o.style.display = 'none');
+
+    // Animation
     let startTime = new Date().getTime();
     let interval = setInterval(() => {
         let now = new Date().getTime();
@@ -23,6 +28,10 @@ function animateDice() {
             clearInterval(interval); // Stop the animation
             diceImage.classList.remove('dice-filter'); // Remove the filter effect
             diceImage.src = `img/dice/dice-${diceResult}.svg`; // Display the real result
+            
+            if (!hasValidMoves(colors[currentColorIndex])) {
+                rollDiceMessage.forEach(o => o.style.display = 'block');
+            }
         } else {
             // Displas a random dice result
             let randomValue = Math.floor(Math.random() * 6) + 1;

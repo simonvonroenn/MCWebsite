@@ -23,10 +23,10 @@ class Piece {
     /**
      * Draw the piece.
      */
-    draw() {
+    draw(squareSize, radius) {
         ctx.fillStyle = this.color;
         ctx.beginPath();
-        ctx.arc(this.x * squareSizePx + squareSizePx / 2, this.y * squareSizePx + squareSizePx / 2, pieceRadius, 0, Math.PI * 2);
+        ctx.arc(this.x * squareSize + squareSize / 2, this.y * squareSize + squareSize / 2, radius, 0, Math.PI * 2);
         ctx.fill();
     }
 }

@@ -22,10 +22,9 @@ class Field {
     /**
      * Draw the field. 
      * 
-     * @param {object} ctx the canvas
      * @param {number} size the size of the field in px
      */
-    draw(ctx, size) {
+    draw(size) {
         let fillColor;
         switch (this.type) {
             case 'empty':

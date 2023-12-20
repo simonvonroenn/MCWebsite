@@ -13,6 +13,11 @@ img {
     height: auto;
 }
 
+canvas {
+    max-width: 600px;
+    max-height: 600px;
+}
+
 .container {
     display: flex;
     flex-direction: row;
@@ -27,6 +32,7 @@ img {
     color: white;
     text-align: center;
     padding: 5vh 0;
+    width: 100%;
 }
 
 .header-content {
@@ -60,6 +66,7 @@ img {
     color: white;
     text-align: left;
     padding: 20vh 20px;
+    min-width: 300px;
 }
 
 /* Current color */
@@ -72,12 +79,24 @@ img {
 /* Dice styles */
 .diceSection {
     flex: 1 0 0;
+    display: flex;
+    flex-direction: column;
 }
 
 #diceImage {
     cursor: pointer;
     width: 150px;
     height: 150px;
+}
+
+#rollDiceMessageParagraph {
+    text-align: center;
+    width: 150px;
+}
+
+#rollDiceMessageHelperDiv {
+    height: 50px;
+    width: 150px;
 }
 
 .dice-filter {
@@ -97,6 +116,11 @@ img {
         color: white;
         text-align: center;
         padding: 0;
-        width: 500px;
+    }
+
+    .diceSection {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
     }
 }

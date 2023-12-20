@@ -174,6 +174,10 @@ function drop(event) {
                 selectedPiece.pathIdx += diceResult;
             }
     
+            // Toggle the 'Roll the dice!' message
+            const rollDiceMessage = document.querySelectorAll('.rollDiceMessage');
+            rollDiceMessage.forEach(o => o.style.display = 'block');
+
             changeColor();
         } else {
             // If the move is not valid, move the piece back to its original position
