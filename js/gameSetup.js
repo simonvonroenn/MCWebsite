@@ -28,7 +28,7 @@ const boardSetup = [
  * @see boardSetup
  */
 const boardMapType = new Map([
-    ['h', 'house'],
+    ['h', 'home'],
     ['e', 'empty'],
     ['p', 'path'],
     ['g', 'goal'],

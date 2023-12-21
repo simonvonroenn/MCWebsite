@@ -30,7 +30,7 @@ let draggedFrom; // The position from where the piece is being dragged
 function calculateValidMoves(color) {
     let startField = getStartField(color);
     pieces[color].forEach(piece => {
-        if (board[piece.y][piece.x].type == 'house') {
+        if (board[piece.y][piece.x].type == 'home') {
             if (diceResult == 6 && !startField.hasOwnPiece(color)) {
                 piece.validMove = startField;
             }
@@ -57,7 +57,7 @@ function calculateValidMoves(color) {
  */
 function isValidMove(x, y, color) {
     let field = board[y][x];
-    if (field.type == 'empty' || field.type == 'house') return false;
+    if (field.type == 'empty' || field.type == 'home') return false;
     if (field.type == 'goal' && field.color != color) return false;
     if (selectedPiece.validMove != board[y][x]) return false;
 
@@ -179,7 +179,7 @@ function drop(event) {
     if (selectedPiece && selectedPiece.color === colors[currentColorIndex] && hasRolled) {
         if (isValidMove(selectedPiece.x, selectedPiece.y, selectedPiece.color)) {
             // Update the position of the piece in the path array
-            if (board[draggedFrom.y][draggedFrom.x].type == 'house') {
+            if (board[draggedFrom.y][draggedFrom.x].type == 'home') {
                 selectedPiece.pathIdx = 0;
             } else {
                 selectedPiece.pathIdx += diceResult;

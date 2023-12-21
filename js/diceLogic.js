@@ -91,5 +91,5 @@ function hasValidMoves(color) {
  * @returns {boolean} true if the player can roll the dice again
 */
 function canRollAgain(color) {
-    return pieces[color].every(piece => piece.type == 'home');
+    return pieces[color].every(piece => board[piece.y][piece.x].type == 'home');
 }

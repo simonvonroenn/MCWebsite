@@ -15,7 +15,7 @@ class Field {
     constructor(x, y, type, color) {
         this.x = x;
         this.y = y;
-        this.type = type; // 'path', 'goal', 'house', 'start', 'empty'
+        this.type = type; // 'path', 'goal', 'home', 'start', 'empty'
         this.color = color; // 'red', 'blue', 'green', 'yellow', 'white', 'lightgrey'
     }
 
@@ -31,7 +31,7 @@ class Field {
             case 'path':
                 fillColor = this.color;
                 break;
-            case 'house':
+            case 'home':
             case 'goal':
             case 'start':
                 // Map the player colors to a more pleasant color (it looks better)
