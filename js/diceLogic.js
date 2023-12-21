@@ -29,7 +29,8 @@ function animateDice() {
             diceImage.classList.remove('dice-filter'); // Remove the filter effect
             diceImage.src = `img/dice/dice-${diceResult}.svg`; // Display the real result
             
-            if (!hasValidMoves(colors[currentColorIndex])) {
+            let color = colors[currentColorIndex];
+            if (!hasValidMoves(color)) {
                 rollDiceMessage.forEach(o => o.style.display = 'block');
             }
         } else {
@@ -46,7 +47,8 @@ function animateDice() {
  */
 function rollDice() {
     if (!hasRolled) {
-        diceResult = Math.floor(Math.random() * 6) + 1;
+        //diceResult = Math.floor(Math.random() * 6) + 1;
+        diceResult = 4;
         document.getElementById('diceImage').src = `img/dice/dice-${diceResult}.svg`;
         animateDice();
         hasRolled = true;
@@ -54,14 +56,42 @@ function rollDice() {
         color = colors[currentColorIndex];
         calculateValidMoves(color);
         if (!hasValidMoves(color)) {
-            if (rollCounter == 3) {
-                rollCounter = 1;
+            if (canRollAgain(color)) {
+                if (rollCounter == 3) {
+                    rollCounter = 1;
+                    animateSkip();
+                    changeColor();
+                } else {
+                    hasRolled = false;
+                    rollCounter++;
+                }
+            } else {
                 animateSkip();
                 changeColor();
-            } else {
-                hasRolled = false;
-                rollCounter++;
             }
         }
+        
     }
+}
+
+/**
+ * This method calculates if a player has valid moves.
+ * 
+ * @param color the player
+ * @returns {boolean} true if the player has valid moves
+*/
+function hasValidMoves(color) {
+    return pieces[color].some(piece => piece.validMove != null);
+}
+
+/**
+ * This method calculates if a player can roll the dice again.
+ * This is true when all pieces are on their home fields.
+ * @see rollDice
+ * 
+ * @param color the player
+ * @returns {boolean} true if the player can roll the dice again
+*/
+function canRollAgain(color) {
+    return pieces[color].every(piece => piece.type == 'home');
 }

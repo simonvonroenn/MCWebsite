@@ -36,24 +36,15 @@ function calculateValidMoves(color) {
             }
         } else {
             if (piece.pathIdx + diceResult < pathlength) {
-                piece.validMove = board[path[color].y[piece.pathIdx + diceResult]][path[color].x[piece.pathIdx + diceResult]];
+                let targetField = board[path[color].y[piece.pathIdx + diceResult]][path[color].x[piece.pathIdx + diceResult]];
+                if (!targetField.hasOwnPiece(color)) {
+                    piece.validMove = targetField;
+                }
             }
         }
 
         if (piece.validMove != null) console.log("(" + piece.validMove.x + ", " + piece.validMove.y + ")");
     });
-}
-
-/**
- * This method calculates if a player has valid moves.
- * Necessary for determining if a player can roll the dice again.
- * @see rollDice
- * 
- * @param color the player
- * @returns {boolean} true if the player has valid moves
-*/
-function hasValidMoves(color) {
-    return pieces[color].some(piece => piece.validMove != null);
 }
 
 /**
@@ -77,14 +68,29 @@ function isValidMove(x, y, color) {
  * Give the next player their turn.
  */
 function changeColor() {
-    pieces[colors[currentColorIndex]].forEach(piece => {
+    let color = colors[currentColorIndex];
+    pieces[color].forEach(piece => {
         piece.validMove = null;
-    }); 
-    currentColorIndex = (currentColorIndex + 1) % colors.length;
-    hasRolled = false;
-    rollCounter = 1;
-    updateCurrentColorDisplay();
-    console.log(colors[currentColorIndex]);
+    });
+    if (pieces[color].every(piece => board[piece.y][piece.x].type == 'goal')) {
+        // Display the win message
+        const winMessage = document.getElementById('winMessage');
+        winMessage.textContent = `Spieler ${color} hat gewonnen!`;
+        
+        // Hide the 'Roll the dice!' message
+        const rollDiceMessage = document.querySelectorAll('.rollDiceMessage');
+        rollDiceMessage.forEach(o => o.style.display = 'none');
+
+        // Hide the current color
+        const currentColor = document.getElementById('currentColor');
+        currentColor.style.display = 'none';
+    } else {
+        currentColorIndex = (currentColorIndex + 1) % colors.length;
+        hasRolled = false;
+        rollCounter = 1;
+        updateCurrentColorDisplay();
+        console.log(colors[currentColorIndex]);
+    }
 }
 
 /**
