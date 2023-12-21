@@ -5,6 +5,17 @@
 /** List of all players/colors */
 const colors = ['red', 'green', 'blue', 'yellow'];
 
+/**
+ * Mapping for finding the top-left home square.
+ * @see sendPieceHome
+ */
+const colortoHomeOffsetMap = new Map([
+    ['red', {x: 0, y: 0}],
+    ['green', {x: 9, y: 0}],
+    ['blue', {x: 9, y: 9}],
+    ['yellow', {x: 0, y: 9}]    
+]);
+
 let currentColorIndex = 0; // Player at index 0 starts
 let selectedPiece = null; // The piece that is been dragged.
 
@@ -20,7 +31,7 @@ function calculateValidMoves(color) {
     let startField = getStartField(color);
     pieces[color].forEach(piece => {
         if (board[piece.y][piece.x].type == 'house') {
-            if (diceResult == 6 && startField.isEmpty()) {
+            if (diceResult == 6 && !startField.hasOwnPiece(color)) {
                 piece.validMove = startField;
             }
         } else {
@@ -173,6 +184,20 @@ function drop(event) {
             } else {
                 selectedPiece.pathIdx += diceResult;
             }
+
+            if (selectedPiece.validMove.hasEnemyPiece(selectedPiece.color)) {
+                for (let color of colors) {
+                    if (color == colors[currentColorIndex]) {
+                        continue;
+                    }
+                    for (let piece of pieces[color]) {
+                        if (piece.x == selectedPiece.x && piece.y == selectedPiece.y) {
+                            sendPieceHome(piece);
+                            break;
+                        }
+                    }
+                }
+            }
     
             // Toggle the 'Roll the dice!' message
             const rollDiceMessage = document.querySelectorAll('.rollDiceMessage');
@@ -188,4 +213,19 @@ function drop(event) {
     } 
     isDragging = false;
     selectedPiece = null;
+}
+
+function sendPieceHome(piece) {
+    piece.pathIdx = -1;
+    for (let dy = 0; dy < 2; dy++) {
+        for (let dx = 0; dx < 2; dx++) {
+            let homePos = colortoHomeOffsetMap.get(piece.color);
+            if (!board[homePos.y + dy][homePos.x + dx].hasOwnPiece(piece.color)) {
+                piece.x = homePos.x + dx;
+                piece.y = homePos.y + dy;
+
+                drawBoard();
+            }
+        }
+    }
 }

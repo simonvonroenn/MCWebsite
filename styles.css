@@ -27,10 +27,6 @@ canvas {
     margin-top: 5vh;
 }
 
-.clickable-cursor {
-    cursor: pointer;
-}
-
 /* Header Styles */
 .game-header {
     color: white;

@@ -55,12 +55,26 @@ class Field {
      * 
      * @returns {boolean} true if the field is empty
      */
-    isEmpty() {
-        pieces[this.color].forEach(piece => {
-            if (piece.x == this.x && piece.y == this.y) {
-                return false;
+    hasEnemyPiece(color) {
+        for (let c of colors) {
+            if (c == color) {
+                continue;
             }
-        });
-        return true;
-    }
+            for (let piece of pieces[c]) {
+                if (piece.x === this.x && piece.y === this.y) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }    
+
+    hasOwnPiece(color) {
+        for (const piece of pieces[color]) {
+            if (piece.x == this.x && piece.y == this.y) {
+                return true;
+            }
+        }
+        return false;
+    }    
 }

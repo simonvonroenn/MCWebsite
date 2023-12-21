@@ -108,17 +108,17 @@ let pieces = {
         new Piece('green', 9, 1, -1), 
         new Piece('green', 10, 1, -1)
     ],
-    yellow: [
-        new Piece('yellow', 0, 9, -1), 
-        new Piece('yellow', 1, 9, -1), 
-        new Piece('yellow', 0, 10, -1), 
-        new Piece('yellow', 1, 10, -1)
-    ],
     blue: [
         new Piece('blue', 9, 9, -1), 
         new Piece('blue', 10, 9, -1), 
         new Piece('blue', 9, 10, -1), 
         new Piece('blue', 10, 10, -1)
+    ],
+    yellow: [
+        new Piece('yellow', 0, 9, -1), 
+        new Piece('yellow', 1, 9, -1), 
+        new Piece('yellow', 0, 10, -1), 
+        new Piece('yellow', 1, 10, -1)
     ]
 };
 
@@ -157,11 +157,9 @@ function setRandomDiceAtStart() {
  * Draw the board.
  */
 function drawBoard() {
-    // Update size of the board (maximum is 500px)
+    // Update the size of the board (maximum is 500px)
     boardSizePx = Math.min(document.getElementById('gameCanvas').width, 500);
-    console.log(boardSizePx);
     squareSizePx = boardSizePx / squaresPerSide;
-    console.log(squareSizePx);
     pieceRadius = squareSizePx / 3;
 
     // Draw the basic layout of the game field
@@ -172,14 +170,14 @@ function drawBoard() {
     }
 
     // Draw the pieces
-    for (const color in pieces) {
+    for (const color of colors) {
         pieces[color].forEach(piece => {
             piece.draw(squareSizePx, pieceRadius);
         });
     }
 
     // Draw the selected piece at the end to make sure that it is in the foreground of everything.
-    if (selectedPiece != null) {
-        selectedPiece.draw();
+    if (selectedPiece) {
+        selectedPiece.draw(squareSizePx, pieceRadius);
     }
 }
