@@ -87,11 +87,13 @@ function changeColor() {
         const currentColor = document.getElementById('currentColor');
         currentColor.style.display = 'none';
     } else {
-        currentColorIndex = (currentColorIndex + 1) % colors.length;
         hasRolled = false;
         rollCounter = 1;
-        updateCurrentColorDisplay();
-        console.log("Next player: " + colors[currentColorIndex]);
+        if (diceResult != 6) {
+            currentColorIndex = (currentColorIndex + 1) % colors.length;
+            updateCurrentColorDisplay();
+            console.log("Next player: " + colors[currentColorIndex]);
+        }
     }
 }
 
