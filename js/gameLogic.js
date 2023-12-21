@@ -124,12 +124,6 @@ function getStartField(color) {
         }
     }
 }
-/**
- * Animate when a player is skipped after rolling 3x with no valid moves.
- */
-function animateSkip() {
-    // Skip animation, if a player has no valid moves.
-}
 
 /**
  * Select a piece when clicking on it.

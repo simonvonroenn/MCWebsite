@@ -59,14 +59,12 @@ function rollDice() {
             if (canRollAgain(color)) {
                 if (rollCounter == 3) {
                     rollCounter = 1;
-                    animateSkip();
                     changeColor();
                 } else {
                     hasRolled = false;
                     rollCounter++;
                 }
             } else {
-                animateSkip();
                 changeColor();
             }
         }
