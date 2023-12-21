@@ -47,8 +47,7 @@ function animateDice() {
  */
 function rollDice() {
     if (!hasRolled) {
-        //diceResult = Math.floor(Math.random() * 6) + 1;
-        diceResult = 4;
+        diceResult = Math.floor(Math.random() * 6) + 1;
         document.getElementById('diceImage').src = `img/dice/dice-${diceResult}.svg`;
         animateDice();
         hasRolled = true;
