@@ -43,7 +43,9 @@ function calculateValidMoves(color) {
             }
         }
 
-        if (piece.validMove != null) console.log("(" + piece.validMove.x + ", " + piece.validMove.y + ")");
+        if (piece.validMove != null) {
+            console.log(`Valid move from (${piece.x}, ${piece.y}) to (${piece.validMove.x}, ${piece.validMove.y})`);
+        }
     });
 }
 
@@ -89,7 +91,7 @@ function changeColor() {
         hasRolled = false;
         rollCounter = 1;
         updateCurrentColorDisplay();
-        console.log(colors[currentColorIndex]);
+        console.log("Next player: " + colors[currentColorIndex]);
     }
 }
 
