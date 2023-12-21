@@ -51,7 +51,7 @@ canvas {
     font-size: 24px;
 }
 
-/* Board styles */
+/* Game board styles */
 .boardSection {
     flex: 1 0 0;
 }
@@ -69,7 +69,6 @@ canvas {
     min-width: 300px;
 }
 
-/* Current color */
 #currentColor {
     font-size: 24px;
     font-weight: bold;

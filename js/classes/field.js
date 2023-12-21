@@ -51,9 +51,10 @@ class Field {
     }
 
     /**
-     * Check if a field is empty.
+     * Check if a field contains enemy pieces.
      * 
-     * @returns {boolean} true if the field is empty
+     * @param {string} color the current player
+     * @returns {boolean} true if the field contains enemy pieces
      */
     hasEnemyPiece(color) {
         for (let c of colors) {
@@ -69,6 +70,12 @@ class Field {
         return false;
     }    
 
+    /**
+     * Check if the field contains pieces from the current player.
+     * 
+     * @param {string} color the current player
+     * @returns {boolean} true if the field contains pieces from the current player
+     */
     hasOwnPiece(color) {
         for (const piece of pieces[color]) {
             if (piece.x == this.x && piece.y == this.y) {

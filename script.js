@@ -21,6 +21,7 @@ function resizeCanvas() {
     drawBoard();
 }
 
+// Event listeners
 document.getElementById('diceImage').addEventListener('click', rollDice);
 
 canvas.addEventListener('mousedown', click);
@@ -29,9 +30,11 @@ canvas.addEventListener('mousemove', drag);
 
 canvas.addEventListener('mouseup', drop);
 
+// Initialize the game
 setup();
 updateCurrentColorDisplay();
 
+// Resize the game on load and on resize of the window
 window.onload = resizeCanvas;
 
 window.onresize = resizeCanvas;
